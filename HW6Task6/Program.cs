@@ -1,11 +1,12 @@
 ﻿// В двумерном массиве показать позиции числа, заданного пользователем или указать, что такого элемента не
 void FillArray(int[,] arr)
 {
+    Random rand = new Random();
     for (int i = 0; i < arr.GetLength(0); i++)
     {
         for (int j = 0; j < arr.GetLength(1); j++)
         {
-            arr[i, j] = 0;
+            arr[i, j] = rand.Next(0, 100);
         }
     }
 }
@@ -20,34 +21,31 @@ void PrintArray(int[,] arr)
         Console.WriteLine();
     }
 }
-void PartialReplacement(int[,] arr)
+void PrintIndexNumber(int[,] arr, int FindNumber)
 {
     for (int i = 0; i < arr.GetLength(0); i++)
     {
         for (int j = 0; j < arr.GetLength(1); j++)
         {
-            if (i == j)
-            {
-                Console.Write("Enter number: ");
-                int Element = Convert.ToInt32(Console.ReadLine());
-                arr[i, j] = Element;
-
-            }
+            if (arr[i, j] == FindNumber)
+                Console.Write($"Sring:{i} column: {j} ");
         }
     }
 }
-void AnalisArray(int[,] arr)
+bool FindElement(int[,] arr, int FindNumber)
 {
     for (int i = 0; i < arr.GetLength(0); i++)
     {
         for (int j = 0; j < arr.GetLength(1); j++)
         {
-            if (arr[i, j] > 0)
+            if (arr[i, j] == FindNumber)
             {
-                Console.Write("Indices of number which entered user  " + i + " " + j + "\n");
+                return true;
             }
+
         }
     }
+    return false;
 }
 Console.Write("Enter number of strings: ");
 int m = Convert.ToInt32(Console.ReadLine());
@@ -56,10 +54,19 @@ int n = Convert.ToInt32(Console.ReadLine());
 int[,] array = new int[m, n];
 FillArray(array);
 PrintArray(array);
-PartialReplacement(array);
-Console.WriteLine();
-PrintArray(array);
-AnalisArray(array);
+Console.Write("Enter the desired number: ");
+int DesiredNumber = Convert.ToInt32(Console.ReadLine());
+FindElement(array, DesiredNumber);
+if (FindElement(array, DesiredNumber) == true)
+    PrintIndexNumber(array, DesiredNumber);
+else
+    Console.WriteLine("There is no such element in the array");
+
+
+
+
+
+
 
 
 
